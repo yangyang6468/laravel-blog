@@ -1,0 +1,58 @@
+/*遮罩层样式*/
+.login-form-mask {
+    z-index: 9998;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.4;
+    display: none
+}
+.login-form,.register-form {
+    z-index: 9999;
+    position: fixed;
+    top: 40%;
+    left: 60%;
+    width: 400px;
+    height: 500px;
+    margin: -180px 0 0 -330px;
+    border-radius: 10px;
+    border: solid 2px #666;
+    background-color: #fff;
+    display: none;
+    box-shadow: 0 0 10px #666;
+}
+.login-close {
+    margin-right: 15px;
+    font-size : 24px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #578cc1;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.login-header {  height: 30px;  padding-left: 50px;  line-height: 30px;  }
+.username input,.password input{  padding-left: 50px;  }
+.form-control-feedback {  line-height: 36px;  left: 10px;  }
+
+.threeLogin a {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    background:url(../img/login_img.png) no-repeat center center ;
+    vertical-align:middle;
+    margin-left:15px;
+    cursor:pointer;
+    background-position:0px  0px;
+}
+
+.threeLogin .nqq{background-position:0 0}
+.threeLogin .nqq:hover{background-position:0 -20px}
+.threeLogin .nwx{background-position:-20px 0}
+.threeLogin .nwx:hover{background-position:-20px -20px}
+.threeLogin .nwb{background-position:-40px 0}
+.threeLogin .nwb:hover{background-position:-40px -20px}
