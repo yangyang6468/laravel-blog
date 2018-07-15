@@ -9,13 +9,18 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const CREATED_AT = 'createtime';
+    const UPDATED_AT = 'updatetime';
+
+    protected $table = 'cmf_userinfos';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nickname', 'email', 'userpwd',
     ];
 
     /**
@@ -24,6 +29,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'userpwd'
     ];
 }
