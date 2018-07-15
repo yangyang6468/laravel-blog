@@ -13,17 +13,17 @@
             <div class="form-group has-feedback">
                 <div class="username">
                     <span class="fa fa-user-circle-o fa-2x form-control-feedback"></span>
-                    <input type="text" class="form-control" id="inputPassword" placeholder="电话号码|邮箱">
+                    <input type="text" class="form-control"  placeholder="电话号码|邮箱">
                 </div>
             </div>
             <div class="form-group pwd-top has-feedback">
                 <div class="password">
                     <span class="fa fa-unlock-alt fa-2x form-control-feedback"></span>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="密码">
+                    <input type="password" class="form-control"  placeholder="密码">
                 </div>
             </div>
             <div class="form-group  ">
-                <input type="text" class="form-control" id="inputPassword" style="width: 200px;display: inline-block" placeholder="验证码">
+                <input type="text" class="form-control"  style="width: 200px;display: inline-block" placeholder="验证码">
                 <img src="{{captcha_src()}}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
             </div>
             <div class="form-group">
@@ -54,31 +54,38 @@
     </div>
     <hr>
     <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="registerForm" >
+            {{ csrf_field() }}
+            <div class="form-group has-feedback">
+                <div class="username">
+                    <span class="fa fa-user-circle-o fa-2x form-control-feedback"></span>
+                    <input type="text"  class="form-control" name="nickname" placeholder="用户名">
+                </div>
+            </div>
             <div class="form-group has-feedback">
                 <div class="username">
                     <span class="fa fa-envelope-o fa-2x form-control-feedback"></span>
-                    <input type="text" class="form-control" id="inputPassword" placeholder="邮箱">
+                    <input type="text" name="email" class="form-control"  placeholder="邮箱">
                 </div>
             </div>
             <div class="form-group pwd-top has-feedback">
                 <div class="password">
                     <span class="fa fa-unlock-alt fa-2x form-control-feedback"></span>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="密码">
+                    <input type="password" name="userpwd" class="form-control"  placeholder="密码">
                 </div>
             </div>
             <div class="form-group pwd-top has-feedback">
                 <div class="password">
                     <span class="fa fa-unlock-alt fa-2x form-control-feedback"></span>
-                    <input type="password" class="form-control" id="inputPassword" placeholder="确认密码">
+                    <input type="password" name="userpwd_confirmation" class="form-control"  placeholder="确认密码">
                 </div>
             </div>
             <div class="form-group  ">
-                <input type="text" class="form-control" id="inputPassword" style="width: 200px;display: inline-block" placeholder="验证码">
-                <img src="{{captcha_src()}}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                <input type="text" class="form-control" name="captcha"  style="width: 200px;display: inline-block" placeholder="验证码">
+                <img src="{{captcha_src()}}"  style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-md btn-block">立即注册</button>
+                <span onclick="doRegister()" class="btn btn-primary btn-md btn-block">立即注册</span>
             </div>
         </form>
         <hr>
@@ -107,6 +114,33 @@
         $('.login-form').slideUp(100);
         $('.register-form').slideDown(200);
     }
+
+    //提交注册信息
+    function  doRegister(){
+        $.ajax({
+            url : "{{ route('register') }}",
+            data : $("#registerForm").serialize(),
+            type : "post",
+            dataType : "json",
+            success:function(redata){
+                console.log(redata);
+            },
+            error:function(msg){
+                var json=JSON.parse(msg.responseText);
+                json = json.errors;
+                for ( var item in json) {
+                    for ( var i = 0; i < json[item].length; i++) {
+                        alert(json[item][i]);
+                        return ; //遇到验证错误，就退出
+                    }
+                }
+            }
+        })
+    }
+
+  new noty({text: "noty",
+            layout: "center",
+            timeout: 5000}).show();
 
 
 </script>

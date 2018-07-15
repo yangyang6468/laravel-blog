@@ -12,6 +12,7 @@ class User extends Authenticatable
     const CREATED_AT = 'createtime';
     const UPDATED_AT = 'updatetime';
 
+    protected $dateFormat = 'U';
     protected $table = 'cmf_userinfos';
 
     /**

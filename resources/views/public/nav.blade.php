@@ -32,18 +32,27 @@
                     <button type="submit" class="btn btn-primary ">搜索</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:showLogin()" >登录</a></li>
-                    <li><a href="javascript:showRegister()">注册</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">admin <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">个人资料</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Another action</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">退出</a></li>
-                        </ul>
-                    </li>
+                    @guest
+                        <li><a href="javascript:showLogin()" >登录</a></li>
+                        <li><a href="javascript:showRegister()">注册</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->nickname }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="text-align: center;width: 20px">
+                                <li><a href="#">个人资料</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Another action</a></li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="$('#logout-form').submit();">退出</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
                 </ul>
             </div>
         </div>

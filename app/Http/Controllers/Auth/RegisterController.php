@@ -47,10 +47,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'nickname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:cmf_userinfos',
-            'userpwd' => 'required|string|min:6|confirmed',
+        return Validator::make($data,[
+            'nickname' => 'bail|required|string|max:20|unique:cmf_userinfos',
+            'email' => 'bail|required|string|email|max:255|unique:cmf_userinfos',
+            'userpwd' => 'bail|required|string|min:6|confirmed',
+            'captcha' => 'bail|required|captcha',
         ]);
     }
 
