@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\DB;
+
 class IndexController extends BaseController
 {
 
@@ -15,6 +17,9 @@ class IndexController extends BaseController
      */
     public function index()
     {
+
+
+
 //        dd(Auth::user()->nickname);
         return view('index.index');
     }

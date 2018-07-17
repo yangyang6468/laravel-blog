@@ -9,17 +9,18 @@
     </div>
     <hr>
     <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="loginForm">
+            {{ csrf_field() }}
             <div class="form-group has-feedback">
                 <div class="username">
                     <span class="fa fa-user-circle-o fa-2x form-control-feedback"></span>
-                    <input type="text" class="form-control"  placeholder="电话号码|邮箱">
+                    <input type="text" name="email" class="form-control"  placeholder="电话号码|邮箱">
                 </div>
             </div>
             <div class="form-group pwd-top has-feedback">
                 <div class="password">
                     <span class="fa fa-unlock-alt fa-2x form-control-feedback"></span>
-                    <input type="password" class="form-control"  placeholder="密码">
+                    <input type="password" name="password" class="form-control"  placeholder="密码">
                 </div>
             </div>
             <div class="form-group  ">
@@ -34,7 +35,7 @@
                 <label class=" col-md-4  control-label register"><a href="javascript:showRegister()">注册</a></label>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-md btn-block">登    录</button>
+                <span onclick="doLogin()"  class="btn btn-primary btn-md btn-block">登    录</span>
             </div>
         </form>
         <hr>
@@ -138,10 +139,27 @@
         })
     }
 
-  new noty({text: "noty",
-            layout: "center",
-            timeout: 5000}).show();
-
+    function doLogin(){
+        $.ajax({
+            url : "{{ route('login') }}",
+            data : $("#loginForm").serialize(),
+            type : "post",
+            dataType : "json",
+            success:function(redata){
+                console.log(redata);
+            },
+            error:function(msg){
+                var json=JSON.parse(msg.responseText);
+                json = json.errors;
+                for ( var item in json) {
+                    for ( var i = 0; i < json[item].length; i++) {
+                        alert(json[item][i]);
+                        return ; //遇到验证错误，就退出
+                    }
+                }
+            }
+        })
+    }
 
 </script>
 
