@@ -2,7 +2,7 @@
 
 @include('public.nav')
 
-@section("conten")
+@yield("content")
 
 @include('public.footer')
 

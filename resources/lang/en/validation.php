@@ -117,6 +117,7 @@ return [
         'email'    => '邮箱',
         'userpwd'  => '密码',
         'captcha'  => '验证码',
+        "password" => '密码'
     ],
 
 ];

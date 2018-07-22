@@ -1,5 +1,5 @@
 <style>
-    .dropdown-menu{min-width:80px}
+    .navbar{margin-bottom:0px}
 </style>
 <div id="app">
     <nav class="navbar navbar-primary navbar-inverse">
@@ -30,8 +30,6 @@
                                 <a href="{{ url('/category', ["id"=>$v->id]) }}" target="_blank">{{ $value->name }}</a>
                             </li>
                         @endif
-
-
                     @endforeach
                 </ul>
                 <form class="navbar-form navbar-left" style="margin-left: 400px">
@@ -52,13 +50,7 @@
                                 <li class="divider"></li>
                                 <li><a href="#">Another action</a></li>
                                 <li class="divider"></li>
-                                <li>
-                                    <a href="{{ route('logout') }}" onclick="$('#logout-form').submit();">退出</a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
+                                <li><a href='javascript:logout()'>退出</a></li>
                             </ul>
                         </li>
                     @endguest
@@ -67,3 +59,4 @@
         </div>
     </nav>
 </div>
+

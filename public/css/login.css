@@ -35,24 +35,12 @@
     border-radius: 50%;
 }
 
-.login-header {  height: 30px;  padding-left: 50px;  line-height: 30px;  }
+.login-header {  height: 30px;  padding-left: 40px;  line-height: 30px; margin-top:10px  }
 .username input,.password input{  padding-left: 50px;  }
 .form-control-feedback {  line-height: 36px;  left: 10px;  }
 
-.threeLogin a {
-    display:inline-block;
-    width:20px;
-    height:20px;
-    background:url(../img/login_img.png) no-repeat center center ;
-    vertical-align:middle;
-    margin-left:15px;
-    cursor:pointer;
-    background-position:0px  0px;
-}
 
-.threeLogin .nqq{background-position:0 0}
-.threeLogin .nqq:hover{background-position:0 -20px}
-.threeLogin .nwx{background-position:-20px 0}
-.threeLogin .nwx:hover{background-position:-20px -20px}
-.threeLogin .nwb{background-position:-40px 0}
-.threeLogin .nwb:hover{background-position:-40px -20px}
+
+.threeLogin .qq{font-size: 50px; color: #1E9FFF;margin-left: 50px ;cursor: pointer}
+
+.threeLogin .wechat{font-size: 50px;line-height: 50px;color: #3fde3f ;margin-left: 70px;cursor: pointer}

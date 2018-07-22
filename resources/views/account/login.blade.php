@@ -14,7 +14,8 @@
             <div class="form-group has-feedback">
                 <div class="username">
                     <span class="fa fa-user-circle-o fa-2x form-control-feedback"></span>
-                    <input type="text" name="email" class="form-control"  placeholder="电话号码|邮箱">
+                    <input type="text" name="email" id="email" class="form-control"  placeholder="电话号码|昵称">
+                    <input type="hidden" name="nickname" id="nickname">
                 </div>
             </div>
             <div class="form-group pwd-top has-feedback">
@@ -24,8 +25,8 @@
                 </div>
             </div>
             <div class="form-group  ">
-                <input type="text" class="form-control"  style="width: 200px;display: inline-block" placeholder="验证码">
-                <img src="{{captcha_src()}}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                <input type="text" class="form-control" name="captcha"  style="width: 200px;display: inline-block" placeholder="验证码">
+                <img id="loginCaptcha" src="{{ captcha_src() }}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
             </div>
             <div class="form-group">
                 <div class="checkbox  col-sm-4 col-md-4 col-lg-4">
@@ -39,9 +40,10 @@
             </div>
         </form>
         <hr>
-        <div class="threeLogin"><span class="text-center">其他方式登录</span>
-            <a class="nqq" href="javascript:;"></a>
-            <a class="nwx" href="javascript:;"></a>
+        <div class="threeLogin"><span class="text-center">其他方式登录:</span>
+            <br><br>
+            <i class="layui-icon layui-icon-login-wechat wechat"  ></i>
+            <i class="layui-icon layui-icon-login-qq qq"></i>
         </div>
     </div>
 </div>
@@ -83,7 +85,7 @@
             </div>
             <div class="form-group  ">
                 <input type="text" class="form-control" name="captcha"  style="width: 200px;display: inline-block" placeholder="验证码">
-                <img src="{{captcha_src()}}"  style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
+                <img id="registerCaptcha" src="{{captcha_src()}}"  style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()">
             </div>
             <div class="form-group">
                 <span onclick="doRegister()" class="btn btn-primary btn-md btn-block">立即注册</span>
@@ -95,71 +97,13 @@
 </div>
 {{--注册弹层end--}}
 
-
 <script>
-    //设置登录页面弹出效果
-    function showLogin(){
-        $('.login-form-mask').fadeIn(100);
-        $('.login-form').slideDown(200);
-        $('.register-form').slideUp(100);
-    }
-
-    function closeMask(){
-        $('.login-form-mask').fadeOut(100);
-        $('.login-form').slideUp(200);
-        $('.register-form').slideUp(200);
-    }
-
-    function showRegister(){
-        $('.login-form-mask').fadeIn(100);
-        $('.login-form').slideUp(100);
-        $('.register-form').slideDown(200);
-    }
-
-    //提交注册信息
-    function  doRegister(){
-        $.ajax({
-            url : "{{ route('register') }}",
-            data : $("#registerForm").serialize(),
-            type : "post",
-            dataType : "json",
-            success:function(redata){
-                console.log(redata);
-            },
-            error:function(msg){
-                var json=JSON.parse(msg.responseText);
-                json = json.errors;
-                for ( var item in json) {
-                    for ( var i = 0; i < json[item].length; i++) {
-                        alert(json[item][i]);
-                        return ; //遇到验证错误，就退出
-                    }
-                }
-            }
-        })
-    }
-
-    function doLogin(){
-        $.ajax({
-            url : "{{ route('login') }}",
-            data : $("#loginForm").serialize(),
-            type : "post",
-            dataType : "json",
-            success:function(redata){
-                console.log(redata);
-            },
-            error:function(msg){
-                var json=JSON.parse(msg.responseText);
-                json = json.errors;
-                for ( var item in json) {
-                    for ( var i = 0; i < json[item].length; i++) {
-                        alert(json[item][i]);
-                        return ; //遇到验证错误，就退出
-                    }
-                }
-            }
-        })
-    }
-
+    // 退出需要的参数
+    var logoutUrl = "{{ route('logout') }}";
+    var _token = "{{ csrf_token() }}";
+    // 登录参数
+    var loginUrl = "{{ route('login') }}";
+    // 注册参数
+    var registerUrl = "{{ route('register') }}";
 </script>
-
+<script src="{{ asset('js/login.js') }}"></script>

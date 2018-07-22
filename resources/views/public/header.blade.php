@@ -16,6 +16,9 @@
     <link href="{{ asset('css/font/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('plug/layui/css/layui.css') }}" rel="stylesheet">
+    <script src="{{ asset('plug/layui/layui.js') }}"></script>
 </head>
 
 <body>
