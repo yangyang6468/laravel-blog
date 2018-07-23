@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\model\article;
-
+use Auth;
 class IndexController extends BaseController
 {
 
@@ -36,7 +36,7 @@ class IndexController extends BaseController
             $articles[$k]->name = $v->nickname->nickname;
             $articles[$k]->label = $v->category_id;
         }
-//        dd($articles);
+
         return view('index.index',compact('slide' , 'articles'));
     }
 }
