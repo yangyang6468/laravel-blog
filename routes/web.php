@@ -19,4 +19,4 @@ Route::get('/home', function(){
     return view("home");
 })->name('home');
 
-Route::get("/detail/{id?}" , 'DetailController@index');
+Route::get("/detail/{id}" , 'DetailController@index');

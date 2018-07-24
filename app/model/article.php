@@ -5,14 +5,13 @@ namespace App\model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class article extends Model
+class Article extends Model
 {
     protected $table = 'cmf_articles';
 
-//    public $timestamps = false;
     const CREATED_AT = 'createtime';
     const UPDATED_AT = 'updatetime';
-
+    public $timestamps = false;
     protected $dates = [
         'created_at',
     ];

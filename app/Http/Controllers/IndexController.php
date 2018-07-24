@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\model\article;
+use App\model\Article;
 use Auth;
 class IndexController extends BaseController
 {
@@ -27,8 +27,8 @@ class IndexController extends BaseController
         }
 
         //文章查找
-        $articles = article::where(["isdelete"=>0])
-                            ->orderBy("id" , "desc")->paginate(10);
+        $articles = Article::where(["isdelete"=>0])
+                            ->orderBy("id","desc")->paginate(10);
         foreach($articles as $k=>$v){
             if($v->photo){
                 $articles[$k]->photo = config('app.index'). $v->photo;
