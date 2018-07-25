@@ -14,11 +14,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- 字体图标 -->
     <link href="{{ asset('css/font/css/font-awesome.min.css') }}" rel="stylesheet">
-
+    {{-- 登录样式--}}
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
-
+    {{-- jayui包 --}}
     <link href="{{ asset('plug/layui/css/layui.css') }}" rel="stylesheet">
     <script src="{{ asset('plug/layui/layui.js') }}"></script>
+    {{--jquery包--}}
+    <script src="{{ asset("js/jquery-1.7.2.min.js") }}"></script>
 </head>
 
 <body>

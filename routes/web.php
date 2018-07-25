@@ -19,4 +19,7 @@ Route::get('/home', function(){
     return view("home");
 })->name('home');
 
+//观点详情页面
 Route::get("/detail/{id}" , 'DetailController@index');
+Route::post('/comment' , 'DetailController@comment');
+Route::get('comment/page' , 'DetailController@page');

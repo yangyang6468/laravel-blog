@@ -2,7 +2,10 @@
 
 @section("content")
     <style>
-        .r_box li { background: rgba(236, 227, 227,0.8);margin :10px 20px; padding: 15px; overflow: hidden; color: #797b7c;height: 100%; margin-bottom: 20px }
+        .row{ margin: 0px 0px}
+        .r_box{margin: 20px auto}
+        .r_box li {border-radius: 5px; background: rgba(236, 227, 227,0.8);margin :10px 20px; padding: 15px; overflow: hidden; color: #797b7c;height: 100%; margin-bottom: 20px }
+        .r_box li:hover{box-shadow:2px 2px 10px #909090;transition: all 0.3s  }
         .r_box li h3 { font-size: 16px; line-height: 25px; text-shadow: #FFF 1px 1px 1px }
         .r_box li h3 a { color: #222 }
         .r_box li h3 a:hover { color: #7073f1!important; text-decoration: none }
