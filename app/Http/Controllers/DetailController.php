@@ -20,7 +20,18 @@ class DetailController extends BaseController
     public function index($id){
 
         $article = Article::find($id);
+        $user_id = Auth::user()->id;
 
+        if(!$user_id){
+            $article->iscollect = -1;
+        }else{
+            DB::enableQueryLog();
+            $iscollect = DB::table("cmf_user_collect")
+                            ->where(["article_id"=>$article->id , "user_id"=>$user_id])
+                            ->value("iscollect");
+            DB::getQueryLog();
+            $article->iscollect = $iscollect ? $iscollect : -1;
+        }
         //用户进入增加热度
         $article->increment("click_count");
 
@@ -29,7 +40,6 @@ class DetailController extends BaseController
         foreach ($comments as $k=>$v){
             $v->children = $commentsObj->getComments($id , $v->id);
         }
-
 
         return view('detail/index' , compact('article' , 'comments'));
     }
@@ -50,8 +60,6 @@ class DetailController extends BaseController
                             "content.min"=>"评论内容不可以少于5个字！",
                         ]
         );
-
-
 
         $commentsObj = new Comment();
 
@@ -79,7 +87,6 @@ class DetailController extends BaseController
             $v->children = $commentsObj->getComments($data["article_id"] , $v->id);
         }
 
-//        dd($comments->toArray());
         return view("detail/comment" , ["comments"=>$comments]);
     }
 
@@ -103,4 +110,115 @@ class DetailController extends BaseController
 
         return view("detail/comment" , ["comments"=>$comments]);
     }
+
+    /**
+     * 收藏
+     * @author yy
+     * @Date 2018/7/26
+     * @return array json信息
+     */
+    public function collect(){
+        $id = (request('id')); //文章id
+        $userid = Auth::user()->id;
+        if(!$userid){
+            return ["code"=>-6 , "msg"=>"用户未登录"];
+        }
+
+        $collect = DB::table("cmf_user_collect")->where(["article_id"=>$id , "user_id"=>$userid])->select('id','iscollect')->first();
+
+        DB::beginTransaction();
+        if(isset($collect->iscollect) && $collect->iscollect > 0){
+           $saveRes = DB::update("update cmf_user_collect set iscollect=-1 , update_time=".time()." where id=" . $collect->id );
+           $article =Article::find($id);
+           $setRes = $article->decrement("collect_count");
+
+            if($saveRes && $setRes){
+                DB::commit();
+                return ["code"=> 2 , "msg" => '取关成功' ,'num' =>$article->collect_count];
+            }else{
+                DB::commit();
+                return ["code"=> -2 , "msg" => '取关失败'];
+            }
+
+        }else{
+            if(!isset($collect->iscollect)){
+                $insertData["article_id"] = $id;
+                $insertData["user_id"] = $userid;
+                $insertData["create_time"] = time();
+                $insertData["iscollect"] = 1;
+                $saveRes = DB::table("cmf_user_collect")->insert($insertData);
+            }elseif(isset($collect->iscollect) && $collect->iscollect < 0){
+                $saveRes = DB::update("update cmf_user_collect set iscollect=1 , update_time=".time()." where id=" . $collect->id );
+            }
+
+            $article =Article::find($id);
+            $setRes = $article->increment("collect_count");
+
+            if($saveRes && $setRes){
+                DB::commit();
+                return ["code"=> 1 , "msg" => '关注成功' , 'num' =>$article->collect_count];
+            }else{
+                DB::commit();
+                return ["code"=> -1 , "msg" => '关注失败'];
+            }
+        }
+
+
+    }
+
+    /**
+     * 对文章评论进行点赞
+     * @author yy
+     * @Date 2018/7/26
+     * @return array json信息
+     */
+    public function praise(){
+        $id = (request('id')); //文章id
+        $userid = Auth::user()->id;
+        if(!$userid){
+            return ["code"=>-6 , "msg"=>"用户未登录"];
+        }
+
+        $praise = DB::table("cmf_user_like")->where(["comment_id"=>$id , "user_id"=>$userid])->select('id','islike')->first();
+
+        DB::beginTransaction();
+        if(isset($praise->islike) && $praise->islike > 0){
+            $saveRes = DB::update("update cmf_user_like set islike=-1 , update_time=".time()." where id=" . $praise->id );
+            $comments =Comment::find($id);
+            $setRes = $comments->decrement("like_count");
+
+            if($saveRes && $setRes){
+                DB::commit();
+                return ["code"=> 2 , "msg" => '取点成功' ,'num' =>$comments->like_count];
+            }else{
+                DB::commit();
+                return ["code"=> -2 , "msg" => '取点失败'];
+            }
+
+        }else{
+            if(!isset($praise->islike)){
+                $insertData["comment_id"] = $id;
+                $insertData["user_id"] = $userid;
+                $insertData["create_time"] = time();
+                $insertData["islike"] = 1;
+                $saveRes = DB::table("cmf_user_like")->insert($insertData);
+            }elseif(isset($praise->islike) && $praise->islike < 0){
+                $saveRes = DB::update("update cmf_user_like set islike=1 , update_time=".time()." where id=" . $praise->id );
+            }
+
+            $comment =Comment::find($id);
+            $setRes = $comment->increment("like_count");
+
+            if($saveRes && $setRes){
+                DB::commit();
+                return ["code"=> 1 , "msg" => '点赞成功' , 'num' =>$comment->like_count];
+            }else{
+                DB::commit();
+                return ["code"=> -1 , "msg" => '点赞失败'];
+            }
+        }
+
+
+    }
+
 }

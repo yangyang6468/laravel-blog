@@ -3,7 +3,8 @@
 namespace App\model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class Comment extends Model
 {
     protected $table = "cmf_comments";
@@ -35,11 +36,22 @@ class Comment extends Model
         $where[] = ["parent_id" , "=" , $parentid];
 
         if($limit){
-            return $this->where($where)->orderBy("id" ,"desc")->paginate($limit);
+            $relult = $this->where($where)->orderBy("id" ,"desc")->paginate($limit);
         }else{
-            return $this->where($where)->orderBy("id" ,"desc")->get();
+            $relult = $this->where($where)->orderBy("id" ,"desc")->get();
         }
 
+        foreach ($relult as $k=>$v){
+            $user_id = Auth::user()->id;
+            if(!$user_id){
+                $v->islike = -1;
+            }else{
+                $islike = DB::table("cmf_user_like")->where(["user_id"=>$user_id , "comment_id"=>$v->id])->value('islike');
+                $v->islike = $islike ? $islike : -1;
+            }
+        }
+
+        return $relult;
     }
 
 

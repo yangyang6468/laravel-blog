@@ -11,12 +11,12 @@
         .time{ margin:auto 20px;display: inline-block}
         .icon{height: 54px;display: block}
         .icon div{display: inline-block;margin:auto 20px ;float: right}
-        .icon div i{color:red; font-size: 20px;cursor: pointer}
+        .icon div i{font-size: 20px;cursor: pointer}
         .icon div .num{line-height: 54px ;font-size: 16px}
 
         .layui-input{width:89%;display: inline-block;height: 40px}
         .comment{ margin-top: 20px }
-        hr{ margin-bottom: 20px;border-top: 1px solid #eee;}
+         hr{ margin-bottom: 20px;border-top: 1px solid #eee;}
         .breadcrumb{ line-height: 16px;margin: 20px 20px}
         .breadcrumb span a{font-size: 16px;}
 
@@ -37,6 +37,16 @@
         .com .children{width: 89%;margin-left: 10% }
         .com .children .icon{margin-left: 50%;display: inline-block}
         .com hr{ margin-bottom: 0px}
+
+        /*分页*/
+        .page{text-align: center}
+        .pageination{display: inline-block;}
+        /*加载图标*/
+        .loading{position:fixed; top:40% ; left:37%;font-size: 50px;display: none;}
+        .img-circle:hover{transform:rotate(360deg);  transition:all 1s ; }
+        .red { color: red}
+
+
     </style>
 
     <div class="row detail" >
@@ -65,16 +75,13 @@
             <p class="content">{!! htmlspecialchars_decode($article->info) !!}</p>
             <div class="icon">
                 <div>
-                    <i class="layui-icon layui-icon-rate" ></i>
-                    <span class="num">{{ $article->collect_count }}</span>
+                    <i class="layui-icon @if($article->iscollect > 0) layui-icon-rate-solid @else layui-icon-rate @endif " onclick="collect('{{ $article->id }}'  ,this)"><span class="num">{{ $article->collect_count }}</span></i>
                 </div>
                 <div>
-                    <i class="layui-icon layui-icon-fire" ></i>
-                    <span class="num" >{{ $article->click_count }}</span>
+                    <i class="layui-icon layui-icon-fire" ><span class="num" >{{ $article->click_count }}</span></i>
                 </div>
                 <div>
-                    <i class="layui-icon layui-icon-dialogue" ></i>
-                    <span class="num" id="comment">{{ $article->comment_count }}</span>
+                    <i class="layui-icon layui-icon-reply-fill" ><span class="num" id="comment">{{ $article->comment_count }}</span></i>
                 </div>
             </div>
 
@@ -99,8 +106,12 @@
         </div>
     </div>
 
-
+    <i class="loading layui-icon layui-icon-loading  layui-anim-rotate layui-anim-loop"></i>
     <script>
+        //判断用户当前登录状态
+        var user = 1;
+        @guest user = 0; @endguest
+
         //评论
         function comment(){
             var id = '{{ request('id') }}';
@@ -144,11 +155,63 @@
 
         //分页
         function page(p){
+            $(".loading").show();
             var id = '{{ request('id') }}';
             var _token = "{{ csrf_token() }}";
             $.get("{{url('comment/page')}}" , {'page':p , _token : _token , "id" :id } , function (redata){
+                $(".loading").hide();
                 $("#add").html(redata).hide().fadeIn(1000);
             })
+        }
+
+        //收藏
+        function collect(id , obj){
+            var _token = '{{ csrf_token() }}';
+            if( user > 0 ){
+                $.post("{{ url('collect') }}" ,{'id':id ,"_token":_token } ,function(redata){
+                     if(redata.code == 1){
+                        $(obj).removeClass("layui-icon-rate ");
+                        $(obj).addClass("layui-icon-rate-solid");
+                        $(obj).find('.num').text(redata.num);
+
+                     }else if(redata.code == 2){
+                         $(obj).addClass("layui-icon-rate ");
+                         $(obj).removeClass("layui-icon-rate-solid");
+                         $(obj).find('.num').text(redata.num);
+
+                     }else if(redata.code == -6){
+                         showLogin();
+                     }
+                    alertMsg(redata.msg);
+
+                })
+            }else{
+                showLogin();
+            }
+        }
+
+        //评论点赞
+        function praise(id , obj){
+            var _token = '{{ csrf_token() }}';
+            if( user > 0 ){
+                $.post("{{ url('praise') }}" ,{'id':id ,"_token":_token } ,function(redata){
+                    if(redata.code == 1){
+                        $(obj).addClass("red");
+                        $(obj).next().text(redata.num);
+
+                    }else if(redata.code == 2){
+                        $(obj).removeClass("red");
+                        $(obj).next().text(redata.num);
+
+                    }else if(redata.code == -6){
+                        showLogin();
+                    }
+                    alertMsg(redata.msg);
+
+                })
+            }else{
+                showLogin();
+            }
         }
 
 

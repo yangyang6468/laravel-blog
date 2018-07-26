@@ -20,6 +20,8 @@ Route::get('/home', function(){
 })->name('home');
 
 //观点详情页面
-Route::get("/detail/{id}" , 'DetailController@index');
-Route::post('/comment' , 'DetailController@comment');
+Route::get("detail/{id}" , 'DetailController@index');
+Route::post('comment' , 'DetailController@comment');
 Route::get('comment/page' , 'DetailController@page');
+Route::post("collect" , 'DetailController@collect');
+Route::post("praise" , 'DetailController@praise');
