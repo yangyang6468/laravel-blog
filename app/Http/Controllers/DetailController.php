@@ -20,7 +20,7 @@ class DetailController extends BaseController
     public function index($id){
 
         $article = Article::find($id);
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user() ? Auth::user()->id : '';
 
         if(!$user_id){
             $article->iscollect = -1;
@@ -54,12 +54,9 @@ class DetailController extends BaseController
     function comment(Request $request){
         $data = $request->input();
         //验证
-        $this->validate($request ,
-                        ["content"=>"bail|required|min:5"],
-                        [   "content.required"=>"评论内容不可以为空！",
-                            "content.min"=>"评论内容不可以少于5个字！",
-                        ]
-        );
+        $rules = ["content"=>"bail|required|min:5"];
+        $messages = ["content.required"=>"评论内容不可以为空！","content.min"=>"评论内容不可以少于5个字！"];
+        $this->validate($request , $rules , $messages);
 
         $commentsObj = new Comment();
 

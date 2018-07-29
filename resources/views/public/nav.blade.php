@@ -30,12 +30,12 @@
             <li class="layui-nav-item nav-right"><a href="javascript:showRegister();">注册</a></li>
         @else
             <li class="layui-nav-item nav-right">
-                <a href="javascript:;">
-                    <img width="40px" height="40px" class="img-circle" src="{{ setHeadimage(Auth::user()->headimage) }}">
+                <a href="{{ url('user/index') }}">
+                    <img width="40px" height="40px" class="img-circle" src="{{ setHeadimage(Auth::user()->headimage , Auth::user()->flag) }}">
                     {{ Auth::user()->nickname }}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">个人资料</a></dd>
+                    <dd><a href="{{ url('user/index') }}">个人中心</a></dd>
                     <dd><a href="javascript:logout();">退出</a></dd>
                 </dl>
             </li>

@@ -42,7 +42,7 @@ class Comment extends Model
         }
 
         foreach ($relult as $k=>$v){
-            $user_id = Auth::user()->id;
+            $user_id = Auth::user() ? Auth::user()->id : '';
             if(!$user_id){
                 $v->islike = -1;
             }else{

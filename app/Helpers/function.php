@@ -2,17 +2,24 @@
 
 
 /**
- * 设置默认图片
+ * 设置图像默认图片
  * @author yy
  * @Date 2010/7/23
- * @param $image
+ * @param $image 图像路径
+ * @param $flag 前后台标志
  * @return string
  */
-function setHeadimage($image){
+function setHeadimage($image , $flag=1){
     if(!$image){
-        return asset("img/2.jpg");
+        return asset("img/default.png");
     }
-    return  config('app.index'). $image;
+    if($flag == 1){
+        return  config('app.index'). $image;
+    }else{
+        return  config('app.index'). $image;
+    }
+
+
 }
 
 /**
