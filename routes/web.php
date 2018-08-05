@@ -40,3 +40,6 @@ Route::post("praise" , 'DetailController@praise');
   |--------------------------------------------------------------------------
   */
 Route::any("user/index" , 'UserController@index');
+Route::any("user/basicProfile" , 'UserController@basicProfile');
+Route::any("user/city" , 'UserController@city');
+Route::post("user/uploadify" , 'UserController@uploadify');
