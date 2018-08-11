@@ -19,18 +19,3 @@
 #back-to-top a:hover{
 	color:#979797;
 }
-#back-to-top a span{
-	background:#d1d1d1;
-	border-radius:6px;
-	display:block;
-	height:60px;
-	width:60px;
-	background:#d1d1d1 url(../img/arrow-up.png) no-repeat center center;
-	margin-bottom:5px;
-	-moz-transition:background 1s;
-	-webkit-transition:background 1s;
-	-o-transition:background 1s;
-}
-#back-to-top a:hover span{
-	background:#979797 url(../img/arrow-up.png) no-repeat center center;
-}

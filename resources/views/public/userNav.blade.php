@@ -1,8 +1,4 @@
-<div class="left col-md-4 " >
-
-    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
-
+<div class="left col-md-4 " style="margin-top: 10%" >
     <div class="holderCircle">
 
         <div class="dotCircle">

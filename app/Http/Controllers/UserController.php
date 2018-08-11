@@ -35,7 +35,10 @@ class UserController extends BaseController
         //省份选择
         $province = DB::table("cmf_provinces")->select('provinceid','province')->get();
 
-        return view("user/basicProfile"  , compact("user" , 'editUser' , 'province' , 'city'));
+        //默认图像选择
+        $default_headiamge = DB::table("cmf_icon")->where(['status'=>1,'type'=>1])->pluck("icon");
+
+        return view("user/basicProfile"  , compact("user" , 'editUser' , 'province' , 'city' , 'default_headiamge'));
     }
 
     /**

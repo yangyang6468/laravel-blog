@@ -1,4 +1,4 @@
-<link href="{{ asset('css/editUser.css') }}" rel="stylesheet">
+<link href="{{ asset('css/editUser.css') }}?20180810" rel="stylesheet">
 
 {{--个人资料显示--}}
 <div class="basic col-md-4">
@@ -28,7 +28,7 @@
             <div class="layui-input-inline">
                 <input type="hidden" name="headimage" id="headimage" value="{{ Auth::user()->headimage }}">
                 <img title="点击修改图像" id="upload" src="{{ setHeadimage(Auth::user()->headimage , Auth::user()->flag) }}" >
-                <span class="btn btn-success checkImgBtn">选择图像</span>
+                <span class="btn btn-success checkImgBtn" onclick="choseHeadImage()">选择图像</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -156,7 +156,7 @@
                     error:function(res){
                         var json=JSON.parse(res.responseText);
                         $.each(json.errors, function(idx, obj) {
-                           layer.msg(obj[0] , {time:1000});
+                            layer.msg(obj[0] , {time:1000});
                             return false;
                         });
                     }
@@ -164,7 +164,7 @@
                 return false; //layui阻止表单提交
             });
 
-
+            //设置默认值
             form.val("userForm", {
                 "province": "{{ $editUser->province }}",
                 "city" : '{{ $editUser->city }}',
@@ -172,9 +172,69 @@
 
             })
         });
-    </script>
 
+
+        //选择图像
+        function choseHeadImage(){
+            layui.use(['layer'],function () {
+                var layer = layui.layer;
+                layer.open({
+                    type:1,//类型
+                    area:['720px'],//定义宽和高
+                    title:'选择图像',//题目
+                    shadeClose:false,//点击遮罩层关闭
+                    content: $('#showImage'),//打开的内容
+                    btn: ['确定', '取消'],
+                });
+            })
+        }
+
+    </script>
 
 </div>
 
+<style>
+    #showImage{
+        width: 720px;
+        display: none
+    }
+    /*默认图片的div*/
+    .defaultIcon {
+        display: inline-block;
+        width:120px;
+        height: 120px;
+        margin: 10px;
+        line-height: 120px;
+        text-align: center;
+    }
+    /*默认图片的样式*/
+    .defaultIcon  img{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .defaultIcon  img:hover{
+        border: 2px solid #a94442;
+        transition: border 0.8s;
+    }
+</style>
+{{--选择默认图像模板start--}}
+<div id="showImage" >
+    @foreach($default_headiamge as $v)
+        <div class="defaultIcon"  onclick="chooseIcon(this)">
+            <input type="hidden" value="{{ $v }}" class="icon">
+            <img src="{{ config('app.manager') }}{{$v}}" class="iconImg text-danger">
+        </div>
+    @endforeach
+</div>
+{{--选择默认图像end--}}
 
+<script>
+    {{--选择图像--}}
+    function chooseIcon(obj){
+        $(".iconImg").animate({width:'80px',height:'80px'})
+        $(obj).children("img").animate({width:'120px',height:'120px'})
+    }
+
+</script>

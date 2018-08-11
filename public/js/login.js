@@ -63,12 +63,17 @@ function doLogin(){
         dataType : "json",
         success:function(redata){
             if(redata == 1){
+                //关闭弹窗和遮罩层
+                $('.login-form').hide();
+                $('.login-form-mask').hide();
+
                 alertDialog("登陆成功");
                 setTimeout(function(){
                     window.location.reload()
                 } , 1000)
             }else{
                 alertDialog("账号|密码输入错误");
+                refreshCaptcha("loginCaptcha")
             }
         },
         error:function(msg){
@@ -89,8 +94,10 @@ function doLogin(){
 //退出
 function logout(){
     $.post( logoutUrl , {"_token" : _token },function(){
-        alertDialog("退出成功")
-        window.location.reload()
+        alertDialog("退出成功");
+        setTimeout(function(){
+            window.location.reload()
+        } , 1000)
     })
 }
 

@@ -1,16 +1,17 @@
+/*个人中心左边资料显示*/
 .basic{
 	margin:3% 10px;
 	border: 1px dashed  #fff3cd ;
-	background-color: #ece7e7;
+	background-color: #080808;
 	line-height: 32px;
-	opacity: 0.8;
+	opacity: 0.6;
 }
 .basic p{
 	width: 100%;
 	margin:10px auto;
-	line-height: 32px;
+	line-height: 50px;
 	font-size: 16px;
-	color: #666;
+	color: #d4c3c3;
 	text-align: center;
 	cursor: pointer;
 }

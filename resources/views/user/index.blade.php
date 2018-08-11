@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section("content")
+    <link rel="stylesheet" href="{{ asset('css/circle.css') }}">
     <style>
-        .right-tab{border: 1px solid #ccc;background-color: #fff}
+        .right-tab{border: 1px dashed #ccc;background-color: #fff ; border-radius: 5px}
     </style>
     <div class="row" style="margin: 20px;">
         @include("public/userNav")
