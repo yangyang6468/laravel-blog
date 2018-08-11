@@ -1,50 +1,8 @@
-<link rel="stylesheet" type="text/css" href="{{ asset('plug/uploadify/uploadify.css') }}">
-<style>
-    .basic{
-        margin:3% 10px;
-        height: 90%;
-        border: 1px dotted  #fff3cd ;
-        background-color: #f1e9e9;
-        line-height: 32px;
-    }
-    .basic p{
-        width: 100%;
-        margin:10px auto;
-        line-height: 32px;
-        font-size: 16px;
-        color: #666;
-        text-align: center;
-        cursor: pointer;
-    }
-    .basic img{
-        display: table-cell;
-        margin-left: 36%;
-        width:80px;
-        height:80px;
-        margin-top: 10px
-    }
-    .basic p span .fa{
-        font-size:20px;
-        margin-left:10px;
-    }
-    .basic p .gender .fa-mars{
-        color: #00a0e9
-    }
-    .basic p .gender .fa-venus{
-        color: deeppink;
-    }
-    .basic p .gender .fa-genderless{
-        color: black;
-    }
-    .basic p span .fa-pencil-square-o{
-        color: #00a0e9
-    }
+<link href="{{ asset('css/editUser.css') }}" rel="stylesheet">
 
-    .uploadify{display: inline-block!important;margin-left: 30%;margin-top: 10px}
-</style>
 {{--个人资料显示--}}
 <div class="basic col-md-4">
-    <img  src="{{ setHeadimage(Auth::user()->headimage , Auth::user()->flag) }}">
+    <img class="img-circle"  src="{{ setHeadimage(Auth::user()->headimage , Auth::user()->flag) }}">
     <p title="昵称">
         <span class="nickname">{{ $user->nickname }}</span>
         <span class="gender"><i class="fa {{ $user->gender }}"></i></span>
@@ -57,23 +15,20 @@
     <p title="个性签名">{{ $user->signature }}</p>
 </div>
 {{--编辑个人资料--}}
-<div class="edit col-md-7" style="margin:3% 10px;">
-    <form class="layui-form" action="">
+<div class="edit col-md-7" >
+    <form class="layui-form" lay-filter="userForm">
         <div class="layui-form-item">
             <label class="layui-form-label">昵称</label>
             <div class="layui-input-block">
-                <input type="text" name="nickname " required  lay-verify="required" placeholder="请输入昵称" class="layui-input" value="{{ $user->nickname }}">
+                <input type="text" name="nickname"  placeholder="请输入昵称" class="layui-input" value="{{ $user->nickname }}">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="line-height: 80px">图像</label>
-            <div class="layui-input-block">
-                <img src="{{ setHeadimage(Auth::user()->headimage , Auth::user()->flag) }}" width="80px" height="80px" style="margin-left: 35%">
-                {{--<form>--}}
-                    {{--<div id="queue"></div>--}}
-                    {{--<input id="file_upload" name="file_upload" type="file" >--}}
-                {{--</form>--}}
-
+        <div class="layui-form-item headimage">
+            <label class="layui-form-label">图像</label>
+            <div class="layui-input-inline">
+                <input type="hidden" name="headimage" id="headimage" value="{{ Auth::user()->headimage }}">
+                <img title="点击修改图像" id="upload" src="{{ setHeadimage(Auth::user()->headimage , Auth::user()->flag) }}" >
+                <span class="btn btn-success checkImgBtn">选择图像</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -84,7 +39,7 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">省</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline" style="margin-left: 30px;width:120px">
                 <select name="province" id="province" lay-filter="province">
                     <option value="">--请选择--</option>
                     <option value="0">未知</option>
@@ -93,13 +48,13 @@
                     @endforeach
                 </select>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">市</label>
-            <div class="layui-input-block">
+            <div class="layui-input-inline" style="width:120px">
                 <select name="city" id="city">
                     <option value="">--请选择--</option>
                     <option value="0">未知</option>
+                    @foreach($city as $k=>$v)
+                        <option value="{{ $v->cityid }}">{{ $v->city }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -112,38 +67,63 @@
         <div class="layui-form-item">
             <label class="layui-form-label">单选框</label>
             <div class="layui-input-block">
-                <input type="radio" name="sex" value="0" title="保密" checked>
-                <input type="radio" name="sex" value="1" title="男">
-                <input type="radio" name="sex" value="2" title="女" >
+                <input type="radio" name="gender" value="0" title="保密" checked>
+                <input type="radio" name="gender" value="1" title="男">
+                <input type="radio" name="gender" value="2" title="女" >
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">个性签名</label>
             <div class="layui-input-block">
-                <textarea name="desc" placeholder="请输入个性签名" class="layui-textarea">{{ $user->signature }}</textarea>
+                <textarea name="signature" placeholder="请输入个性签名" class="layui-textarea signature">{{ $user->signature }}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn">确定</button>
-                <button type="reset" class="layui-btn layui-btn-primary">返回</button>
+                <button class="btn btn-primary" lay-submit="" lay-filter="go">确定</button>
+                <button class="btn btn-danger">返回</button>
             </div>
         </div>
     </form>
 
-    <script src="{{ asset('plug/uploadify/jquery.uploadify.min.js') }}" type="text/javascript"></script>
-
     {{--form表单--}}
     <script>
-        layui.use(['form','laydate'], function(){
+
+        $(".basic").css("height" , $(".basic").parent().height());
+        layui.use(['form','laydate','upload','layer'], function(){
             var form = layui.form;
             var laydate = layui.laydate;
+            var upload = layui.upload;
+            var laryer = layui.layer;
 
-            //执行一个laydate实例
+            //执行一个laydate实例 日期插件
             laydate.render({
                 elem: '#birthday', //指定元素
             });
 
+            //执行实例  上传插件
+            var _token = '{{ csrf_token() }}';
+            var uploadInst = upload.render({
+                elem: '#upload' ,//绑定元素
+                url: '{{ url('public/upload') }}', //上传接口
+                data:{'_token' : _token},
+                done: function(res){
+                    //上传完毕回调
+                    if(res.code == 1){
+                        $("#upload").attr("src" , res.filename);
+                        $("#headimage").val(res.file);
+                    }else{
+                        layer.msg(res.msg);
+                    }
+                },
+                error: function(){
+                    //请求异常回调
+                    layer.msg("上传失败");
+                }
+            });
+
+
+            //监控省的下拉列表
             form.on('select(province)', function(data){
                 var province = data.value;
                 var _token = '{{ csrf_token() }}';
@@ -155,25 +135,46 @@
                 }
 
             });
+
+
+            //监听提交
+            form.on('submit(go)', function(data){
+                var postData = data.field;
+                postData._token = "{{ csrf_token() }}";
+                console.log(postData);
+                $.ajax({
+                    url : "{{ url('user/editFile') }}",
+                    data : postData,
+                    dataType : "json",
+                    type : 'post',
+                    success:function(res){
+                        if(res.code == 1){
+
+                        }
+                        layer.msg(res.info, {time: 2000});
+                    },
+                    error:function(res){
+                        var json=JSON.parse(res.responseText);
+                        $.each(json.errors, function(idx, obj) {
+                           layer.msg(obj[0] , {time:1000});
+                            return false;
+                        });
+                    }
+                })
+                return false; //layui阻止表单提交
+            });
+
+
+            form.val("userForm", {
+                "province": "{{ $editUser->province }}",
+                "city" : '{{ $editUser->city }}',
+                "gender": '{{ $editUser->gender }}',
+
+            })
         });
     </script>
 
-    {{--uploadify控件--}}
-    <script type="text/javascript">
-        <?php $timestamp = time();?>
 
-        var swfUrl = "{{ asset('plug/uploadify/uploadify.swf') }}";
-        {{--$(function() {--}}
-            {{--$('#file_upload').uploadify({--}}
-                {{--'formData'     : {--}}
-                    {{--'timestamp' : '<?php echo $timestamp;?>',--}}
-                    {{--'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'--}}
-                {{--},--}}
-                {{--'swf'      : swfUrl,--}}
-                {{--'uploader' : "{{ url("user/uploadify") }}",--}}
-            {{--});--}}
-        {{--});--}}
-    </script>
 </div>
 
 

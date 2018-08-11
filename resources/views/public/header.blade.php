@@ -16,11 +16,16 @@
     <link href="{{ asset('css/font/css/font-awesome.min.css') }}" rel="stylesheet">
     {{-- 登录样式--}}
     <link href="{{ asset('css/login.css') }}" rel="stylesheet">
+    {{--返回顶部样式--}}
+    <link href="{{ asset('css/top.css') }}" rel="stylesheet">
     {{-- jayui包 --}}
     <link href="{{ asset('plug/layui/css/layui.css') }}" rel="stylesheet">
     <script src="{{ asset('plug/layui/layui.js') }}"></script>
     {{--jquery包--}}
     <script src="{{ asset("js/jquery-1.7.2.min.js") }}"></script>
+
+
 </head>
 
-<body>
+<body id="top">
+<p id="back-to-top"><a href="#top"><span></span>回到顶部</a></p>

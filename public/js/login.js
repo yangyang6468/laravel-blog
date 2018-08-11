@@ -7,12 +7,14 @@ function showLogin(){
     $('.register-form').hide();
 }
 
+//关闭弹窗
 function closeMask(){
     $('.login-form-mask').fadeOut(100);
     $('.login-form').slideUp(200);
     $('.register-form').slideUp(200);
 }
 
+//显示注册弹窗
 function showRegister(){
     refreshCaptcha("registerCaptcha")
     $('.login-form-mask').fadeIn(100);
@@ -20,7 +22,7 @@ function showRegister(){
     $('.register-form').slideDown(200);
 }
 
-//提交注册信息
+//注册信息验证
 function  doRegister(){
     $.ajax({
         url : registerUrl,
@@ -32,8 +34,10 @@ function  doRegister(){
         },
         error:function(msg){
             if(msg.status == 200){
-                alertDialog("登陆成功");
-                window.location.reload()
+                alertDialog("注册成功");
+                setTimeout(function(){
+                    window.location.reload()
+                } , 2000)
             }
 
             var json=JSON.parse(msg.responseText);
@@ -49,6 +53,7 @@ function  doRegister(){
     })
 }
 
+//登录验证
 function doLogin(){
     $("#nickname").val($("#email").val());
     $.ajax({
@@ -57,13 +62,17 @@ function doLogin(){
         type : "post",
         dataType : "json",
         success:function(redata){
-
+            if(redata == 1){
+                alertDialog("登陆成功");
+                setTimeout(function(){
+                    window.location.reload()
+                } , 1000)
+            }else{
+                alertDialog("账号|密码输入错误");
+            }
         },
         error:function(msg){
-            if(msg.status == 200){
-                alertDialog("登陆成功");
-                window.location.reload()
-            }
+
             var json=JSON.parse(msg.responseText);
             json = json.errors;
             for ( var item in json) {
@@ -91,7 +100,7 @@ function alertDialog(msg) {
     //一般直接写在一个js文件中
     layui.use(['layer'], function () {
         var layer = layui.layer;
-        layer.msg(msg,{time:3000,anim : 4});
+        layer.msg(msg,{time:1000,anim : 4});
     });
 }
 

@@ -17,11 +17,12 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
+     * 白名单
+     * fillable 与 guarded 只限制了 create 方法，而不会限制 save。
      * @var array
      */
     protected $fillable = [
-        'nickname', 'email', 'userpwd',
+        'nickname', 'email', 'password' , 'ip' , 'lastlogindate'
     ];
 
     /**
@@ -29,7 +30,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'userpwd'
-    ];
+//    protected $hidden = [
+//        'userpwd'
+//    ];
 }

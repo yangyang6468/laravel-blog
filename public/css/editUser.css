@@ -1,0 +1,68 @@
+.basic{
+	margin:3% 10px;
+	border: 1px dashed  #fff3cd ;
+	background-color: #ece7e7;
+	line-height: 32px;
+	opacity: 0.8;
+}
+.basic p{
+	width: 100%;
+	margin:10px auto;
+	line-height: 32px;
+	font-size: 16px;
+	color: #666;
+	text-align: center;
+	cursor: pointer;
+}
+.basic img{
+	display: table-cell;
+	margin-left: 36%;
+	width:80px;
+	height:80px;
+	margin-top: 10px
+}
+.basic p span .fa{
+	font-size:20px;
+	margin-left:10px;
+}
+.basic p .gender .fa-mars{
+	color: #00a0e9
+}
+.basic p .gender .fa-venus{
+	color: deeppink;
+}
+.basic p .gender .fa-genderless{
+	color: black;
+}
+.basic p span .fa-pencil-square-o{
+	color: #00a0e9
+}
+
+/*编辑资料div*/
+.edit{
+	margin:3% 10px;
+}
+/*图像修改*/
+.headimage .checkImgBtn{
+	margin-left: 10%
+}
+
+.headimage #upload{
+	margin-left: 25%;
+	border-radius: 50%;
+	cursor: pointer ;
+	width: 80px;
+	height: 80px;
+}
+.headimage .layui-form-label{
+	line-height: 80px;
+}
+.headimage .layui-input-inline{
+	width: 300px;
+}
+
+/*个性签名*/
+.signature{
+	resize: none;
+	height: 150px
+}

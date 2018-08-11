@@ -1,0 +1,47 @@
+a{text-decoration: none!important;}
+a:hover{color: #00a0e9}
+.detail{  display: block;  margin: 20px;  }
+.article-img img{ width:100% ; height: 200px;margin-bottom: 20px}
+.headimage{ width: 50px;height: 50px ;margin:auto 20px}
+.author{ margin: 40px auto ; background-color: #eee}
+.time{ margin:auto 20px;display: inline-block}
+.icon{height: 54px;display: block;}
+.icon div{display: inline-block;margin:auto 20px ;float: right}
+.icon div i{font-size: 20px;cursor: pointer}
+.icon div .num{line-height: 54px ;font-size: 16px}
+
+.layui-input{width:89%;display: inline-block;height: 40px}
+.comment{ margin-top: 20px }
+hr{ margin-bottom: 20px;border-top: 1px solid #eee;}
+.breadcrumb{ line-height: 16px;margin: 20px 20px}
+.breadcrumb span a{font-size: 16px;}
+
+/*评论*/
+.com{border: 1px solid #CCCCCC ; background-color: #f5f8fa; margin-bottom: 10px}
+.com:hover{box-shadow:2px 2px 10px #909090;transition: all 0.3s}
+.com p img{ width: 50px ; height: 50px ;margin: 10px 20px}
+.com p .name{ font-size: 16px;line-height: 50px;color: #0000F0;width: 50px;display: inline-block;}
+.com .content{ font-size: 16px ; line-height: 1.5em;width: 90%;margin:0px 10px 10px 10%;}
+
+.com .parent{position: relative}
+.com .children{position: relative}
+.com .parent .icon{position:absolute ; left: 90%;top:25px ;display: inline-block}
+.com .children .icon{position:absolute ; left: 40%;top:25px ;display: inline-block}
+.com .icon i{ font-size: 20px;cursor: pointer}
+
+.com .children{width: 89%;margin-left: 10% }
+.com .children .icon{margin-left: 50%;display: inline-block}
+.com hr{ margin-bottom: 0px}
+
+/*分页*/
+.page{text-align: center}
+.pageination{display: inline-block;}
+/*加载图标*/
+.loading{position:fixed; top:40% ; left:37%;font-size: 50px;display: none;}
+.img-circle:hover{transform:rotate(360deg);  transition:all 1s ; }
+.red { color: red}
+.img-circle{ cursor: pointer}
+
+/*分享样式修改*/
+.bdsharebuttonbox{z-index:10;position:fixed;top:40%;left:30%; border: 1px solid #CCCCCC;border-radius: 5px ;display: inline-block ;display: none;background-color: #CCCCCC;opacity: 0.6 }
+.bdsharebuttonbox a{border-radius: 50%;margin:20px 10px }

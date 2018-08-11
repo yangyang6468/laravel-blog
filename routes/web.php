@@ -28,18 +28,26 @@ Route::get('/home', function(){
   | 观点详情页面
   |--------------------------------------------------------------------------
   */
-Route::get("detail/{id}" , 'DetailController@index');
-Route::post('comment' , 'DetailController@comment');
-Route::get('comment/page' , 'DetailController@page');
-Route::post("collect" , 'DetailController@collect');
-Route::post("praise" , 'DetailController@praise');
+Route::get("detail/{id}" , 'DetailController@index'); //观点详情
+Route::post('comment' , 'DetailController@comment');  //评论
+Route::get('comment/page' , 'DetailController@page'); //获取评论内容
+Route::post("collect" , 'DetailController@collect');  //收藏
+Route::post("praise" , 'DetailController@praise');    //点赞
 
 /*
   |--------------------------------------------------------------------------
   | 用户中心
   |--------------------------------------------------------------------------
   */
-Route::any("user/index" , 'UserController@index');
-Route::any("user/basicProfile" , 'UserController@basicProfile');
-Route::any("user/city" , 'UserController@city');
-Route::post("user/uploadify" , 'UserController@uploadify');
+Route::any("user/index" , 'UserController@index'); //个人中心首页
+Route::any("user/basicProfile" , 'UserController@basicProfile'); //显示基本资料
+Route::any("user/city" , 'UserController@city'); //获取城市信息
+Route::post("user/editFile" , 'UserController@editFile');  //编辑资料
+
+
+/*
+  |--------------------------------------------------------------------------
+  | 上传公共方法
+  |--------------------------------------------------------------------------
+  */
+Route::post("public/upload" , 'PublicController@upload'); //上传图片

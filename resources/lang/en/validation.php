@@ -65,7 +65,7 @@ return [
     'numeric'              => ':attribute 必须是数字',
     'present'              => ':attribute 字段必须存在',
     'regex'                => ':attribute 格式是无效的',
-    'required'             => ':attribute 字段是必须的',
+    'required'             => ':attribute 不可以为空',
     'required_if'          => ':attribute 字段是必须的当 :other 是 :value',
     'required_unless'      => ':attribute 字段是必须的，除非 :other 是在 :values 中',
     'required_with'        => ':attribute 字段是必须的当 :values 是存在的',
@@ -117,7 +117,16 @@ return [
         'email'    => '邮箱',
         'userpwd'  => '密码',
         'captcha'  => '验证码',
-        "password" => '密码'
+        "password" => '密码',
+
+        //用户信息编辑
+        'birthday' => '生日',
+        'city'     => '城市',
+        'headimage'=> '图像',
+        'phone'    => '电话号码',
+        'province' => '城市',
+        'signature'=> '个性签名',
+        'gender'   => '性别',
     ],
 
 ];

@@ -16,7 +16,7 @@ function setHeadimage($image , $flag=1){
     if($flag == 1){
         return  config('app.index'). $image;
     }else{
-        return  config('app.index'). $image;
+        return  config('app.manager'). $image;
     }
 
 
