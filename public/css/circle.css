@@ -306,9 +306,12 @@
 
 
 
-
-
-
+/*右边主体边框*/
+.right-tab{
+	border: 1px dashed #ccc;
+	background-color: #fff ;
+	border-radius: 5px;
+}
 
 
 

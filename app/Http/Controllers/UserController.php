@@ -15,16 +15,14 @@ class UserController extends BaseController
         return $this->middleware("user");
     }
 
-    public function index(){
-        return view('user/index');
-    }
-
     /**
-     * 个人基本资料
+     * 个人中心首页
      * @author yy
-     * @Date 2018/8/5
+     * @Date 2018/8/12
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function basicProfile(){
+    public function index(){
+        //默认展示我的资料数据
         $userid = Auth::user()->id;
         //显示用户资料
         $user = Userinfo::find($userid);
@@ -34,11 +32,11 @@ class UserController extends BaseController
         $city =  DB::table("cmf_city")->select("cityid","city")->where(["provinceid"=>$editUser->province])->get();
         //省份选择
         $province = DB::table("cmf_provinces")->select('provinceid','province')->get();
-
         //默认图像选择
         $default_headiamge = DB::table("cmf_icon")->where(['status'=>1,'type'=>1])->pluck("icon");
-
-        return view("user/basicProfile"  , compact("user" , 'editUser' , 'province' , 'city' , 'default_headiamge'));
+        //设置导航类型
+        $navType = 1;
+        return view('user/index' , compact("user" , 'editUser' , 'province' , 'city' , 'default_headiamge' , 'navType'));
     }
 
     /**
@@ -50,7 +48,6 @@ class UserController extends BaseController
 
         $data = $request->except(['file',"_token"]);
 
-        $data["flag"] = 1;
         $data["updatetime"] = time();
         $data["birthday"] = strtotime($data["birthday"]);
 

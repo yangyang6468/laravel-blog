@@ -23,32 +23,32 @@ $(document).ready(function(){
     });
 
 
-    $('.itemDot').click(function(){
-
-        var dataTab= $(this).data("tab");
-        $('.itemDot').removeClass('active');
-        $(this).addClass('active');
-
-        $(".contentCircle div").removeClass();
-        $(".contentCircle div").addClass('CirItem');
-        $(".contentCircle div").addClass('CirItem'+ dataTab);
-
-        i=dataTab;
-
-        $('.dotCircle').css({
-            "transform":"rotate("+(360-(i-1)*36)+"deg)",
-            "transition":"2s"
-        });
-        $('.itemDot').css({
-            "transform":"rotate("+((i-1)*36)+"deg)",
-            "transition":"1s"
-        });
-
-        var txt = $(this).find('span').find('a').text();
-        $('.CirItem').text(txt);
-
-
-    });
+    //$('.itemDot').click(function(){
+    //
+    //    var dataTab= $(this).data("tab");
+    //    $('.itemDot').removeClass('active');
+    //    $(this).addClass('active');
+    //
+    //    $(".contentCircle div").removeClass();
+    //    $(".contentCircle div").addClass('CirItem');
+    //    $(".contentCircle div").addClass('CirItem'+ dataTab);
+    //
+    //    i=dataTab;
+    //
+    //    $('.dotCircle').css({
+    //        "transform":"rotate("+(360-(i-1)*36)+"deg)",
+    //        "transition":"2s"
+    //    });
+    //    $('.itemDot').css({
+    //        "transform":"rotate("+((i-1)*36)+"deg)",
+    //        "transition":"1s"
+    //    });
+    //
+    //    var txt = $(this).find('span').text();
+    //    $('.CirItem').text(txt);
+    //
+    //
+    //});
 
     //setInterval(function(){
     //    var i=1;

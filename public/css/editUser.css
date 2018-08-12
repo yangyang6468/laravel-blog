@@ -67,3 +67,29 @@
 	resize: none;
 	height: 150px
 }
+
+/*图像模板选择样式*/
+#showImage{
+	width: 720px;
+	display: none
+}
+/*默认图片的div*/
+.defaultIcon {
+	display: inline-block;
+	width:120px;
+	height: 120px;
+	margin: 10px;
+	line-height: 120px;
+	text-align: center;
+}
+/*默认图片的样式*/
+.defaultIcon  img{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.defaultIcon  img:hover{
+	border: 2px solid #a94442;
+	transition: border 0.8s;
+}

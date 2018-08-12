@@ -44,6 +44,15 @@ Route::any("user/basicProfile" , 'UserController@basicProfile'); //显示基本�
 Route::any("user/city" , 'UserController@city'); //获取城市信息
 Route::post("user/editFile" , 'UserController@editFile');  //编辑资料
 
+/*
+  |--------------------------------------------------------------------------
+  | 用户中心----我的文章管理
+  |--------------------------------------------------------------------------
+  */
+Route::any("articlelist" , 'ArticleManagerController@index'); //我的文章列表
+Route::get("articleShow/{id?}" , 'ArticleManagerController@add'); //添加|编辑文章
+
+
 
 /*
   |--------------------------------------------------------------------------
