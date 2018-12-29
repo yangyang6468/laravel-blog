@@ -60,3 +60,11 @@ Route::get("articleShow/{id?}" , 'ArticleManagerController@add'); //添加|编�
   |--------------------------------------------------------------------------
   */
 Route::post("public/upload" , 'PublicController@upload'); //上传图片
+
+/*
+  |--------------------------------------------------------------------------
+  | 上传公共方法
+  |--------------------------------------------------------------------------
+  */
+Route::any('account/wxLogin'  , 'AccountController@wxLogin'); //微信登录
+Route::get('account/wxResult' , 'AccountController@wxResult'); //微信登录

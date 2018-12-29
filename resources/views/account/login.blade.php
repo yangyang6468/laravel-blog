@@ -42,7 +42,7 @@
         <hr>
         <div class="threeLogin"><span class="text-center">其他方式登录:</span>
             <br><br>
-            <i class="layui-icon layui-icon-login-wechat wechat"  ></i>
+            <a href="{{ url('account/wxLogin') }}" TARGET="_blank"><i class="layui-icon layui-icon-login-wechat wechat"  ></i></a>
             <i class="layui-icon layui-icon-login-qq qq"></i>
         </div>
     </div>
