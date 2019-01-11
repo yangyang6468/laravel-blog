@@ -10,7 +10,7 @@ class Kernel extends HttpKernel
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
-     *
+     * 全局中间件
      * @var array
      */
     protected $middleware = [
@@ -24,6 +24,7 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware groups.
      *
+     * 中间件组
      * @var array
      */
     protected $middlewareGroups = [
@@ -48,6 +49,7 @@ class Kernel extends HttpKernel
      *
      * These middleware may be assigned to groups or used individually.
      *
+     * 指定路由中间件
      * @var array
      */
     protected $routeMiddleware = [
